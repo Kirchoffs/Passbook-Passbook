@@ -14,6 +14,7 @@ public class Feedback {
     private String type;
     private String templateId;
     private String comment;
+
     public boolean validate() {
         FeedbackType feedbackType = Enums.getIfPresent(
                 FeedbackType.class, this.type.toUpperCase()
