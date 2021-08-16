@@ -8,6 +8,7 @@ import org.apache.hadoop.hbase.util.Bytes;
 
 public class FeedbackRowMapper implements RowMapper<Feedback> {
     private static byte[] FAMILY_I = Constants.Feedback.FAMILY_I.getBytes();
+
     private static byte[] USER_ID = Constants.Feedback.USER_ID.getBytes();
     private static byte[] TYPE = Constants.Feedback.TYPE.getBytes();
     private static byte[] TEMPLATE_ID = Constants.Feedback.TEMPLATE_ID.getBytes();

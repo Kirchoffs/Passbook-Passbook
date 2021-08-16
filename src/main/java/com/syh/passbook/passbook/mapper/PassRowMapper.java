@@ -9,6 +9,7 @@ import org.apache.hadoop.hbase.util.Bytes;
 
 public class PassRowMapper implements RowMapper<Pass> {
     private static byte[] FAMILY_I = Constants.PassTable.FAMILY_I.getBytes();
+
     private static byte[] USER_ID = Constants.PassTable.USER_ID.getBytes();
     private static byte[] TEMPLATE_ID = Constants.PassTable.TEMPLATE_ID.getBytes();
     private static byte[] TOKEN = Constants.PassTable.TOKEN.getBytes();
