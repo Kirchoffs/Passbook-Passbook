@@ -10,6 +10,7 @@ import java.util.Date;
 @NoArgsConstructor
 @AllArgsConstructor
 public class PassTemplate {
+    // The merchant ID that belongs to
     private Integer id;
     private String title;
     private String summary;

@@ -14,7 +14,7 @@ public class PassRowMapper implements RowMapper<Pass> {
     private static byte[] TEMPLATE_ID = Constants.PassTable.TEMPLATE_ID.getBytes();
     private static byte[] TOKEN = Constants.PassTable.TOKEN.getBytes();
     private static byte[] ASSIGNED_DATE = Constants.PassTable.ASSIGNED_DATE.getBytes();
-    private static byte[] CON_DATE = Constants.PassTable.CON_DATE.getBytes();
+    private static byte[] CONSUMED_DATE = Constants.PassTable.CONSUMED_DATE.getBytes();
 
     @Override
     public Pass mapRow(Result result, int rowNum) throws Exception {
@@ -28,12 +28,12 @@ public class PassRowMapper implements RowMapper<Pass> {
         String[] patterns = new String[] {"yyyy-DD-dd"};
         pass.setAssignedDate(DateUtils.parseDate(Bytes.toString(result.getValue(FAMILY_I, ASSIGNED_DATE)), patterns));
 
-        // Consumer Date
-        String conDateStr = Bytes.toString(result.getValue(FAMILY_I, CON_DATE));
-        if (conDateStr.equals("-1")) {
+        // Consumed Date
+        String consumedDateStr = Bytes.toString(result.getValue(FAMILY_I, CONSUMED_DATE));
+        if (consumedDateStr.equals("-1")) {
             pass.setConDate(null);
         } else {
-            pass.setConDate(DateUtils.parseDate(conDateStr, patterns));
+            pass.setConDate(DateUtils.parseDate(consumedDateStr, patterns));
         }
 
         pass.setRowKey(Bytes.toString(result.getRow()));

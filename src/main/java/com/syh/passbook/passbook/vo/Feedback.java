@@ -16,9 +16,9 @@ public class Feedback {
     private String comment;
 
     public boolean validate() {
-        FeedbackType feedbackType = Enums.getIfPresent(
-                FeedbackType.class, this.type.toUpperCase()
-        ).orNull();
+        FeedbackType feedbackType = Enums
+                .getIfPresent(FeedbackType.class, this.type.toUpperCase())
+                .orNull();
 
         return !(null == feedbackType || null == comment);
     }
