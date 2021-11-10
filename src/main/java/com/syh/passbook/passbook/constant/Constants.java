@@ -74,7 +74,6 @@ public class Constants {
 
         public static final String ASSIGNED_DATE = "assigned_date";
 
-        /** Consumed date */
         public static final String CONSUMED_DATE = "consumed_date";
     }
 

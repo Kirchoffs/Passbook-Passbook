@@ -10,7 +10,7 @@ public class LogConstants {
 
         public static final String INVENTORY_INFO = "InventoryInfo";
 
-        public static final String GAIN_PASS_TEMPLATE = "GainPassTemplate";
+        public static final String GET_PASS_TEMPLATE = "GainPassTemplate";
 
         public static final String CREATE_FEEDBACK = "CreateFeedback";
 

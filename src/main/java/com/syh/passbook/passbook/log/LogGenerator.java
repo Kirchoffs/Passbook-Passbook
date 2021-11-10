@@ -9,15 +9,15 @@ import javax.servlet.http.HttpServletRequest;
 public class LogGenerator {
     public static void genLog(HttpServletRequest request, Long userId, String action, Object info) {
         log.info(
-                new Gson().toJson(
-                        new LogObject(
-                                action,
-                                userId,
-                                System.currentTimeMillis(),
-                                request.getRemoteAddr(),
-                                info
-                        )
+            new Gson().toJson(
+                new LogObject(
+                    action,
+                    userId,
+                    System.currentTimeMillis(),
+                    request.getRemoteAddr(),
+                    info
                 )
+            )
         );
     }
 }

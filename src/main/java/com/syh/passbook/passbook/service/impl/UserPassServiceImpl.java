@@ -68,7 +68,7 @@ public class UserPassServiceImpl implements IUserPassService {
     }
 
     @Override
-    public Response useUserPass(Pass pass) {
+    public Response userUsePass(Pass pass) {
         byte[] rowPrefix = Bytes.toBytes(
             new StringBuilder(String.valueOf(pass.getUserId())).reverse().toString()
         );

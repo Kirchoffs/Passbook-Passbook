@@ -13,5 +13,5 @@ public interface IUserPassService {
     // All passes
     Response getUserAllPassInfo(Long userId) throws Exception;
 
-    Response useUserPass(Pass pass);
+    Response userUsePass(Pass pass);
 }
