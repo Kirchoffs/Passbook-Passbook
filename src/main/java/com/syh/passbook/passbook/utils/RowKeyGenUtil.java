@@ -9,8 +9,7 @@ import org.apache.commons.codec.digest.DigestUtils;
 @Slf4j
 public class RowKeyGenUtil {
     public static String genPassTemplateRowKey(PassTemplate passTemplate) {
-
-        String passInfo = passTemplate.getId() + "_" + passTemplate.getTitle();
+        String passInfo = passTemplate.getMerchantId() + "_" + passTemplate.getTitle();
         String rowKey = DigestUtils.md5Hex(passInfo);
         log.info("GenPassTemplateRowKey: {}, {}", passInfo, rowKey);
 
@@ -25,12 +24,12 @@ public class RowKeyGenUtil {
      */
     public static String genPassRowKey(GetPassRequest request) {
         return new StringBuilder(String.valueOf(request.getUserId())).reverse().toString() +
-                (Long.MAX_VALUE - System.currentTimeMillis()) +
-                genPassTemplateRowKey(request.getPassTemplate());
+                   (Long.MAX_VALUE - System.currentTimeMillis()) +
+                   genPassTemplateRowKey(request.getPassTemplate());
     }
 
     public static String genFeedbackRowKey(Feedback feedback) {
         return new StringBuilder(String.valueOf(feedback.getUserId())).reverse().toString() +
-                (Long.MAX_VALUE - System.currentTimeMillis());
+                   (Long.MAX_VALUE - System.currentTimeMillis());
     }
 }

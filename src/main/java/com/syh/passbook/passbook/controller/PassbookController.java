@@ -12,7 +12,12 @@ import com.syh.passbook.passbook.vo.Pass;
 import com.syh.passbook.passbook.vo.Response;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.RestController;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -20,7 +25,6 @@ import javax.servlet.http.HttpServletRequest;
 @RestController
 @RequestMapping("/passbook")
 public class PassbookController {
-    @Autowired
     private IUserPassService userPassService;
     private IInventoryService inventoryService;
     private IGetPassService getPassService;
@@ -49,11 +53,11 @@ public class PassbookController {
             LogConstants.ActionName.USER_PASS_INFO,
             null
         );
-        return userPassService.getUserPassInfo(userId);
+        return userPassService.getUserUnusedPassInfo(userId);
     }
 
     @ResponseBody
-    @GetMapping("userUsedPassInfo")
+    @GetMapping("/userUsedPassInfo")
     public Response userUsedPassInfo(Long userId) throws Exception {
         LogGenerator.genLog(
             httpServletRequest,
@@ -67,7 +71,6 @@ public class PassbookController {
     @ResponseBody
     @PostMapping("/userUsePass")
     Response userUsePass(@RequestBody Pass pass) {
-
         LogGenerator.genLog(
                 httpServletRequest,
                 pass.getUserId(),
@@ -90,12 +93,12 @@ public class PassbookController {
     }
 
     @ResponseBody
-    @PostMapping("/getPassTemplate")
-    Response getPassTemplate(@RequestBody GetPassRequest request) throws Exception {
+    @PostMapping("/getPass")
+    Response getPass(@RequestBody GetPassRequest request) throws Exception {
         LogGenerator.genLog(
             httpServletRequest,
             request.getUserId(),
-            LogConstants.ActionName.GET_PASS_TEMPLATE,
+            LogConstants.ActionName.GET_PASS,
             request
         );
         return getPassService.getPass(request);
@@ -110,7 +113,6 @@ public class PassbookController {
             LogConstants.ActionName.CREATE_FEEDBACK,
             feedback
         );
-
         return feedbackService.createFeedback(feedback);
     }
 
@@ -129,6 +131,6 @@ public class PassbookController {
     @ResponseBody
     @GetMapping("/exception")
     Response exception() throws Exception {
-        throw new Exception("Exception Controller");
+        throw new Exception("Exception");
     }
 }

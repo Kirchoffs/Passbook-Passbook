@@ -2,7 +2,7 @@ package com.syh.passbook.passbook.service.impl;
 
 import com.spring4all.spring.boot.starter.hbase.api.HbaseTemplate;
 import com.syh.passbook.passbook.constant.Constants;
-import com.syh.passbook.passbook.service.IHBasePassService;
+import com.syh.passbook.passbook.service.IHBasePassTemplateService;
 import com.syh.passbook.passbook.utils.RowKeyGenUtil;
 import com.syh.passbook.passbook.vo.PassTemplate;
 import lombok.extern.slf4j.Slf4j;
@@ -16,15 +16,15 @@ import org.springframework.stereotype.Service;
 
 @Slf4j
 @Service
-public class HBasePassServiceImpl implements IHBasePassService {
+public class HBasePassTemplateServiceImpl implements IHBasePassTemplateService {
     private final HbaseTemplate hbaseTemplate;
 
     @Autowired
-    public HBasePassServiceImpl(HbaseTemplate hbaseTemplate) {
+    public HBasePassTemplateServiceImpl(HbaseTemplate hbaseTemplate) {
         this.hbaseTemplate = hbaseTemplate;
     }
 
-    public boolean distributePassTemplateToHBase(PassTemplate passTemplate) {
+    public boolean persistPassTemplateToHBase(PassTemplate passTemplate) {
         if (null == passTemplate) {
             return false;
         }
@@ -49,7 +49,7 @@ public class HBasePassServiceImpl implements IHBasePassService {
         put.addColumn(
                 Bytes.toBytes(Constants.PassTemplateTable.FAMILY_B),
                 Bytes.toBytes(Constants.PassTemplateTable.ID),
-                Bytes.toBytes(passTemplate.getId())
+                Bytes.toBytes(passTemplate.getMerchantId())
         );
         put.addColumn(
                 Bytes.toBytes(Constants.PassTemplateTable.FAMILY_B),

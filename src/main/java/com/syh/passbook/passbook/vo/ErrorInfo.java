@@ -11,6 +11,8 @@ public class ErrorInfo<T> {
     public static final Integer ERROR = -1;
     private Integer code;
     private String message;
+
+    // request URL
     private String url;
     private T data;
 }

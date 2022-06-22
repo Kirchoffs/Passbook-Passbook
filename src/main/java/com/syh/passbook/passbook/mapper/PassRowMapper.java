@@ -31,9 +31,9 @@ public class PassRowMapper implements RowMapper<Pass> {
         // Consumed Date
         String consumedDateStr = Bytes.toString(result.getValue(FAMILY_I, CONSUMED_DATE));
         if (consumedDateStr.equals("-1")) {
-            pass.setConDate(null);
+            pass.setConsumedDate(null);
         } else {
-            pass.setConDate(DateUtils.parseDate(consumedDateStr, patterns));
+            pass.setConsumedDate(DateUtils.parseDate(consumedDateStr, patterns));
         }
 
         pass.setRowKey(Bytes.toString(result.getRow()));

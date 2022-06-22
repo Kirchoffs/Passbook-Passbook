@@ -25,7 +25,7 @@ public class PassTemplateRowMapper implements RowMapper<PassTemplate> {
     public PassTemplate mapRow(Result result, int rowNum) throws Exception {
         PassTemplate passTemplate = new PassTemplate();
 
-        passTemplate.setId(Bytes.toInt(result.getValue(FAMILY_B, ID)));
+        passTemplate.setMerchantId(Bytes.toInt(result.getValue(FAMILY_B, ID)));
         passTemplate.setTitle(Bytes.toString(result.getValue(FAMILY_B, TITLE)));
         passTemplate.setSummary(Bytes.toString(result.getValue(FAMILY_B, SUMMARY)));
         passTemplate.setDesc(Bytes.toString(result.getValue(FAMILY_B, DESC)));

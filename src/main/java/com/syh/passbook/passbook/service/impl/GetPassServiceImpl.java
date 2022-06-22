@@ -28,8 +28,8 @@ import java.util.List;
 @Slf4j
 @Service
 public class GetPassServiceImpl implements IGetPassService {
-    private HbaseTemplate hbaseTemplate;
-    private StringRedisTemplate stringRedisTemplate;
+    final private HbaseTemplate hbaseTemplate;
+    final private StringRedisTemplate stringRedisTemplate;
 
     @Autowired
     public GetPassServiceImpl(HbaseTemplate hbaseTemplate, StringRedisTemplate stringRedisTemplate) {
@@ -78,7 +78,7 @@ public class GetPassServiceImpl implements IGetPassService {
             hbaseTemplate.saveOrUpdates(Constants.PassTemplateTable.TABLE_NAME, data);
         }
 
-        if (!addPassForUser(request, passTemplate.getId(), passTemplateId)) {
+        if (!addPassForUser(request, passTemplate.getMerchantId(), passTemplateId)) {
             return Response.failure("GetPass Failure");
         }
 

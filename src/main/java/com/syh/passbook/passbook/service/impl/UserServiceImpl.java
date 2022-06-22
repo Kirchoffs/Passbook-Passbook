@@ -5,16 +5,20 @@ import com.syh.passbook.passbook.constant.Constants;
 import com.syh.passbook.passbook.service.IUserService;
 import com.syh.passbook.passbook.vo.Response;
 import com.syh.passbook.passbook.vo.User;
+import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang.RandomStringUtils;
 import org.apache.hadoop.hbase.client.Mutation;
 import org.apache.hadoop.hbase.client.Put;
 import org.apache.hadoop.hbase.util.Bytes;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.StringRedisTemplate;
+import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
 
+@Slf4j
+@Service
 public class UserServiceImpl implements IUserService {
 
     private HbaseTemplate hbaseTemplate;
@@ -38,7 +42,7 @@ public class UserServiceImpl implements IUserService {
         byte[] PHONE = Constants.UserTable.PHONE.getBytes();
         byte[] ADDRESS = Constants.UserTable.ADDRESS.getBytes();
 
-        Long curCount = redisTemplate.opsForValue().increment(Constants.USE_COUNT_REDIS_KEY, 1);
+        Long curCount = redisTemplate.opsForValue().increment(Constants.USER_COUNT_REDIS_KEY, 1);
         Long userId = genUserId(curCount);
 
         List<Mutation> data = new ArrayList<>();

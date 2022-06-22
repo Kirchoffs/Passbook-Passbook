@@ -53,7 +53,7 @@ public class UserPassServiceImpl implements IUserPassService {
     }
 
     @Override
-    public Response getUserPassInfo(Long userId) throws Exception {
+    public Response getUserUnusedPassInfo(Long userId) throws Exception {
         return getPassInfoByStatus(userId, PassStatus.UNUSED);
     }
 
@@ -85,7 +85,7 @@ public class UserPassServiceImpl implements IUserPassService {
             Constants.PassTable.FAMILY_I.getBytes(),
             Constants.PassTable.CONSUMED_DATE.getBytes(),
             CompareFilter.CompareOp.EQUAL,
-            Bytes.toBytes(pass.getTemplateId())
+            Bytes.toBytes("-1")
         ));
 
         scan.setFilter(new FilterList(filters));
@@ -149,9 +149,9 @@ public class UserPassServiceImpl implements IUserPassService {
                 continue;
             }
 
-            Merchant merchant = merchantMap.getOrDefault(passTemplate.getId(), null);
+            Merchant merchant = merchantMap.getOrDefault(passTemplate.getMerchantId(), null);
             if (null == merchant) {
-                log.error("Merchant is null: {}", passTemplate.getId());
+                log.error("Merchant is null: {}", passTemplate.getMerchantId());
                 continue;
             }
 
@@ -194,7 +194,7 @@ public class UserPassServiceImpl implements IUserPassService {
         for (Result templateResult: templateResults) {
             PassTemplate passTemplate = new PassTemplate();
 
-            passTemplate.setId(Bytes.toInt(templateResult.getValue(FAMILY_B, ID)));
+            passTemplate.setMerchantId(Bytes.toInt(templateResult.getValue(FAMILY_B, ID)));
             passTemplate.setTitle(Bytes.toString(templateResult.getValue(FAMILY_B, TITLE)));
             passTemplate.setSummary(Bytes.toString(templateResult.getValue(FAMILY_B, SUMMARY)));
             passTemplate.setDesc(Bytes.toString(templateResult.getValue(FAMILY_B, DESC)));
@@ -219,7 +219,7 @@ public class UserPassServiceImpl implements IUserPassService {
         Map<Integer, Merchant> merchantMap = new HashMap<>();
         List<Integer> merchantIds = passTemplates
                 .stream()
-                .map(PassTemplate::getId)
+                .map(PassTemplate::getMerchantId)
                 .collect(Collectors.toList());
 
         Optional<List<Merchant>> merchantRes = merchantDao.findByIdIn(merchantIds);

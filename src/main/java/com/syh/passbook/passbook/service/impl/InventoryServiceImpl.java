@@ -50,19 +50,20 @@ public class InventoryServiceImpl implements IInventoryService {
     }
 
     @Override
+    @SuppressWarnings("unchecked")
     public Response getInventoryInfo(Long userId) throws Exception {
         Response allUserPass = userPassService.getUserAllPassInfo(userId);
         List<PassInfo> passInfos = (List<PassInfo>) allUserPass.getData();
         List<PassTemplate> excludeObjects = passInfos.stream()
-                .map(PassInfo::getPassTemplate)
-                .collect(Collectors.toList());
+            .map(PassInfo::getPassTemplate)
+            .collect(Collectors.toList());
         List<String> excludeIds = new ArrayList<>();
         excludeObjects.forEach(excludeObject -> excludeIds.add(RowKeyGenUtil.genPassTemplateRowKey(excludeObject)));
         return new Response(new InventoryResponse(userId, buildPassTemplateInfo(getAvailablePassTemplate(excludeIds))));
     }
 
     private List<PassTemplate> getAvailablePassTemplate(List<String> excludeIds) {
-        FilterList filterList = new FilterList(FilterList.Operator.MUST_PASS_ALL);
+        FilterList filterList = new FilterList(FilterList.Operator.MUST_PASS_ONE); // or relationship
         filterList.addFilter(
             new SingleColumnValueFilter(
                 Bytes.toBytes(Constants.PassTemplateTable.FAMILY_C),
@@ -110,7 +111,7 @@ public class InventoryServiceImpl implements IInventoryService {
 
         List<Integer> merchantIds = passTemplates
             .stream()
-            .map(PassTemplate::getId)
+            .map(PassTemplate::getMerchantId)
             .collect(Collectors.toList());
 
         merchantDao
@@ -121,9 +122,9 @@ public class InventoryServiceImpl implements IInventoryService {
 
         List<PassTemplateInfo> res = new ArrayList<>(passTemplates.size());
         for (PassTemplate passTemplate: passTemplates) {
-            Merchant merchant = merchantMap.getOrDefault(passTemplate.getId(), null);
+            Merchant merchant = merchantMap.getOrDefault(passTemplate.getMerchantId(), null);
             if (merchant == null) {
-                log.error("Merchants Error: {}", passTemplate.getId());
+                log.error("Merchants Error: {}", passTemplate.getMerchantId());
                 continue;
             }
 

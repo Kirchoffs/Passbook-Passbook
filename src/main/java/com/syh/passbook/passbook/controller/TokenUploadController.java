@@ -84,7 +84,7 @@ public class TokenUploadController {
 
         if (!CollectionUtils.isEmpty(tokens)) {
             redisTemplate.executePipelined(
-                (RedisCallback<Object>) connection -> {
+                    (RedisCallback<Object>) connection -> {
                     for (String token: tokens) {
                         connection.sAdd(key.getBytes(), token.getBytes());
                     }

@@ -4,7 +4,7 @@ public class Constants {
     public static final String TEMPLATE_TOPIC = "merchants-template";
     public static final String TOKEN_DIR = "/tmp/token/";
     public static final String USED_TOKEN_SUFFIX = "_";
-    public static final String USE_COUNT_REDIS_KEY = "user-count";
+    public static final String USER_COUNT_REDIS_KEY = "user-count";
 
     /**
      * User HBase table

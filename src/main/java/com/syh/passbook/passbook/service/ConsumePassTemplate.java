@@ -4,6 +4,7 @@ import com.google.gson.GsonBuilder;
 import com.syh.passbook.passbook.constant.Constants;
 import com.syh.passbook.passbook.vo.PassTemplate;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.kafka.annotation.KafkaListener;
 import org.springframework.kafka.support.KafkaHeaders;
 import org.springframework.messaging.handler.annotation.Header;
@@ -13,9 +14,10 @@ import org.springframework.stereotype.Component;
 @Component
 @Slf4j
 public class ConsumePassTemplate {
-    private final IHBasePassService passService;
+    private final IHBasePassTemplateService passService;
 
-    public ConsumePassTemplate(IHBasePassService passService) {
+    @Autowired
+    public ConsumePassTemplate(IHBasePassTemplateService passService) {
         this.passService = passService;
     }
 
@@ -35,6 +37,6 @@ public class ConsumePassTemplate {
             return;
         }
 
-        log.info("distributePassTemplateToHBase: {}", passService.distributePassTemplateToHBase(pt));
+        log.info("distributePassTemplateToHBase: {}", passService.persistPassTemplateToHBase(pt));
     }
 }

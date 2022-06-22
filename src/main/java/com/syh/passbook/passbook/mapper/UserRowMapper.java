@@ -21,7 +21,7 @@ public class UserRowMapper implements RowMapper<User> {
     private static byte[] ADDRESS = Constants.UserTable.ADDRESS.getBytes();
 
     @Override
-    public User mapRow(Result result, int i) throws Exception {
+    public User mapRow(Result result, int rowNum) throws Exception {
         User.BaseInfo baseInfo = new User.BaseInfo(
                 Bytes.toString(result.getValue(FAMILY_B, NAME)),
                 Bytes.toInt(result.getValue(FAMILY_B, AGE)),
