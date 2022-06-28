@@ -1,0 +1,34 @@
+spring:
+  application:
+    name: PassbookPassbook
+  datasource:
+    url: jdbc:mysql://127.0.0.1:3306/passbook?autoReconnect=true
+    username: username
+    password: password
+  jpa:
+    hibernate:
+      ddl-auto: update
+    generate-ddl: true
+  kafka:
+    bootstrap-servers: 127.0.0.1:9092
+    consumer:
+        group-id: passbook
+    listener:
+        concurrency: 4
+  data:
+    hbase:
+      quorum: 127.0.0.1:2181
+      rootDir: file:///path/to/hbase/data
+      nodeParent: /hbase
+  redis:
+    host: 127.0.0.1
+    port: 6379
+
+server:
+  port: 9528
+
+logging:
+  level:
+    root: INFO
+  file:
+    name: passbook-passbook.log

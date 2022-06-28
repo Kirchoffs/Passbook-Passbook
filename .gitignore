@@ -32,3 +32,5 @@ build/
 .vscode/
 
 passbook-passbook.log*
+
+**/.DS_Store
