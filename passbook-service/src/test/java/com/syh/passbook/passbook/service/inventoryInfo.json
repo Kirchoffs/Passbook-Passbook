@@ -1,0 +1,53 @@
+{
+    "errorCode":0,
+    "errorMsg":"",
+    "data":{
+        "userId":1257682,
+        "passTemplateInfoList":[
+            {
+                "passTemplate":{
+                    "merchantId":20,
+                    "title":"verizon family plan",
+                    "summary":"phone plan for a family",
+                    "desc":"Cheap but strong",
+                    "limit":10000,
+                    "hasToken":false,
+                    "background":2,
+                    "start":"Jun 19, 2022 12:00:00 AM",
+                    "end":"Jul 9, 2022 12:00:00 AM"
+                },
+                "merchant":{
+                    "id":20,
+                    "name":"google",
+                    "logoUrl":"www.google.com",
+                    "businessLicenceUrl":"www.google.com",
+                    "phone":"271828",
+                    "address":"San Jose",
+                    "isAudit":true
+                }
+            },
+            {
+                "passTemplate":{
+                    "merchantId":20,
+                    "title":"att family plan",
+                    "summary":"phone plan for a family",
+                    "desc":"Cheap but strong",
+                    "limit":10000,
+                    "hasToken":true,
+                    "background":2,
+                    "start":"Jun 19, 2022 12:00:00 AM",
+                    "end":"Jul 9, 2022 12:00:00 AM"
+                },
+                "merchant":{
+                    "id":20,
+                    "name":"googld",
+                    "logoUrl":"www.google.com",
+                    "businessLicenceUrl":"www.google.com",
+                    "phone":"271828",
+                    "address":"San Jose",
+                    "isAudit":true
+                }
+            }
+        ]
+    }
+}

@@ -19,6 +19,7 @@ public class UserServiceTest {
     @Test
     public void testCreateUser() throws Exception {
         User user = new User();
+
         user.setBaseInfo(new User.BaseInfo("Ben", 25, "m"));
         user.setOtherInfo(new User.OtherInfo("2147483647", "1223 W 29th Street"));
 

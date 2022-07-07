@@ -21,12 +21,15 @@ Start Redis
 Operation on HBase
 > ./bin/hbase shell  
 > create_namespace 'pb'  
-> list_namespace_tables 'pb'
+> list_namespace_tables 'pb'  
+> list
+> 
 
 Operation on Redis
 > ./src/redis-cli  
 > keys *
 > smembers 'key-id'
+> flushall /flushdb
 > quit
 
 ## Config

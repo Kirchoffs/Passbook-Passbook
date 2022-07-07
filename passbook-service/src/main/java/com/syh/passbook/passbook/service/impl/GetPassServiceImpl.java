@@ -115,7 +115,7 @@ public class GetPassServiceImpl implements IGetPassService {
         put.addColumn(
             FAMILY_I,
             ASSIGNED_DATE,
-            Bytes.toBytes(DateFormatUtils.ISO_DATE_FORMAT.format(new Date()))
+            Bytes.toBytes(DateFormatUtils.ISO_8601_EXTENDED_DATE_FORMAT.format(new Date()))
         );
         put.addColumn(FAMILY_I, CONSUMED_DATE, Bytes.toBytes("-1"));
 
@@ -134,6 +134,7 @@ public class GetPassServiceImpl implements IGetPassService {
                 passTemplateId + Constants.USED_TOKEN_SUFFIX
             ),
             (token + "\n").getBytes(),
+            StandardOpenOption.CREATE,
             StandardOpenOption.APPEND
         );
     }

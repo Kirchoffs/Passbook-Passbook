@@ -50,8 +50,13 @@ public class TokenUploadController {
         try {
             File cur = new File(Constants.TOKEN_DIR + merchantId);
             if (!cur.exists()) {
-                log.info("Create file: {}", cur.mkdir());
+                if (cur.mkdir()) {
+                    log.info("Created file successfully");
+                } else {
+                    log.error("Failed to create the file");
+                }
             }
+
             Path path = Paths.get(Constants.TOKEN_DIR, merchantId, passTemplateId);
             Files.write(path, file.getBytes());
 

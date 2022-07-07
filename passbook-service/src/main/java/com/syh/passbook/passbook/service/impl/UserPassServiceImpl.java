@@ -15,6 +15,7 @@ import com.syh.passbook.passbook.vo.Response;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang.time.DateFormatUtils;
 import org.apache.commons.lang.time.DateUtils;
+import org.apache.hadoop.hbase.CompareOperator;
 import org.apache.hadoop.hbase.TableName;
 import org.apache.hadoop.hbase.client.Get;
 import org.apache.hadoop.hbase.client.Mutation;
@@ -77,13 +78,13 @@ public class UserPassServiceImpl implements IUserPassService {
         filters.add(new SingleColumnValueFilter(
             Constants.PassTable.FAMILY_I.getBytes(),
             Constants.PassTable.TEMPLATE_ID.getBytes(),
-            CompareFilter.CompareOp.EQUAL,
+            CompareOperator.EQUAL,
             Bytes.toBytes(pass.getTemplateId())
         ));
         filters.add(new SingleColumnValueFilter(
             Constants.PassTable.FAMILY_I.getBytes(),
             Constants.PassTable.CONSUMED_DATE.getBytes(),
-            CompareFilter.CompareOp.EQUAL,
+            CompareOperator.EQUAL,
             Bytes.toBytes("-1")
         ));
 
@@ -116,9 +117,9 @@ public class UserPassServiceImpl implements IUserPassService {
 
     private Response getPassInfoByStatus(Long userId, PassStatus status) throws Exception {
         byte[] rowPrefix = Bytes.toBytes(new StringBuilder(String.valueOf(userId)).reverse().toString());
-        CompareFilter.CompareOp compareOp =
+        CompareOperator compareOp =
                 status == PassStatus.UNUSED ?
-                CompareFilter.CompareOp.EQUAL : CompareFilter.CompareOp.NOT_EQUAL;
+                CompareOperator.EQUAL : CompareOperator.NOT_EQUAL;
 
         Scan scan = new Scan();
 

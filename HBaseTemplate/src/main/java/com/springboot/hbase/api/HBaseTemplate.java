@@ -62,22 +62,6 @@ public class HBaseTemplate implements HBaseOperations {
     }
 
     @Override
-    public <T> List<T> find(String tableName, String family, RowMapper<T> mapper) {
-        Scan scan = new Scan();
-        scan.setCaching(5000);
-        scan.addFamily(Bytes.toBytes(family));
-        return this.find(tableName, scan, mapper);
-    }
-
-    @Override
-    public <T> List<T> find(String tableName, String family, String qualifier, RowMapper<T> mapper) {
-        Scan scan = new Scan();
-        scan.setCaching(5000);
-        scan.addColumn(Bytes.toBytes(family), Bytes.toBytes(qualifier));
-        return this.find(tableName, scan, mapper);
-    }
-
-    @Override
     public <T> List<T> find(String tableName, Scan scan, RowMapper<T> mapper) {
         return this.execute(tableName, new TableCallback<List<T>>() {
             @Override
@@ -101,13 +85,19 @@ public class HBaseTemplate implements HBaseOperations {
     }
 
     @Override
-    public <T> T get(String tableName, String rowName, RowMapper<T> mapper) {
-        return this.get(tableName, rowName, null, null, mapper);
+    public <T> List<T> find(String tableName, String family, RowMapper<T> mapper) {
+        Scan scan = new Scan();
+        scan.setCaching(5000);
+        scan.addFamily(Bytes.toBytes(family));
+        return this.find(tableName, scan, mapper);
     }
 
     @Override
-    public <T> T get(String tableName, String rowName, String familyName, RowMapper<T> mapper) {
-        return this.get(tableName, rowName, familyName, null, mapper);
+    public <T> List<T> find(String tableName, String family, String qualifier, RowMapper<T> mapper) {
+        Scan scan = new Scan();
+        scan.setCaching(5000);
+        scan.addColumn(Bytes.toBytes(family), Bytes.toBytes(qualifier));
+        return this.find(tableName, scan, mapper);
     }
 
     @Override
@@ -129,6 +119,17 @@ public class HBaseTemplate implements HBaseOperations {
             }
         });
     }
+
+    @Override
+    public <T> T get(String tableName, String rowName, RowMapper<T> mapper) {
+        return this.get(tableName, rowName, null, null, mapper);
+    }
+
+    @Override
+    public <T> T get(String tableName, String rowName, String familyName, RowMapper<T> mapper) {
+        return this.get(tableName, rowName, familyName, null, mapper);
+    }
+
 
     @Override
     public void execute(String tableName, MutatorCallback action) {
